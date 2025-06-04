@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.navigation.safeargs)
 }
 hilt {
     enableAggregatingTask = false
@@ -75,6 +76,7 @@ dependencies {
     // ExoPlayer
     implementation(libs.exoplayer.core)
     implementation(libs.exoplayer.mediasession)
+    implementation(libs.exoplayer.common)
 
     // RecyclerView
     implementation(libs.androidx.recyclerview)

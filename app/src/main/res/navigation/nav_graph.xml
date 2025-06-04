@@ -8,6 +8,33 @@
     <fragment
         android:id="@+id/trainingsFragment"
         android:name="com.l3on1kl.forkolsa.ui.list_trainings.TrainingsFragment"
-        android:label="Тренировки"
-        tools:layout="@layout/fragment_trainings" />
+        android:label="Trainings"
+        tools:layout="@layout/fragment_trainings">
+        <action
+            android:id="@+id/action_trainingsFragment_to_trainingDetailFragment"
+            app:destination="@id/trainingDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trainingDetailFragment"
+        android:name="com.l3on1kl.forkolsa.ui.training_detail.TrainingDetailFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_training_detail">
+        <argument
+            android:name="trainingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <argument
+            android:name="description"
+            app:argType="string" />
+
+        <argument
+            android:name="duration"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

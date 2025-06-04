@@ -10,6 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.l3on1kl.forkolsa.databinding.FragmentTrainingsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,14 @@ class TrainingsFragment : Fragment() {
 
     private val viewModel: TrainingsViewModel by viewModels()
     private val adapter = TrainingAdapter { training ->
-        // TODO: переход на экран детализации тренировки
+        val action = TrainingsFragmentDirections
+            .actionTrainingsFragmentToTrainingDetailFragment(
+                trainingId = training.id,
+                title = training.title,
+                description = training.description,
+                duration = training.duration
+            )
+        findNavController().navigate(action)
     }
 
     private var previousType: Int? = null
@@ -44,7 +52,7 @@ class TrainingsFragment : Fragment() {
 
         binding.searchInput.setText(viewModel.currentQueryValue)
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
                     is TrainingsUiState.Loading -> {
