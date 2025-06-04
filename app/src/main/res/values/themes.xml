@@ -1,9 +1,66 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Base.Theme.ForKOLSA" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorSurfaceContainer">@color/colorSurfaceContainer</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/colorSurfaceContainer</item>
+        <item name="android:windowBackground">@color/colorSurfaceContainer</item>
+        <item name="fontFamily">@font/sf_pro_display</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
-    <style name="Theme.ForKOLSA" parent="Base.Theme.ForKOLSA" />
+    <style name="Text">
+        <item name="android:fontFamily">@font/sf_pro_display</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="Text.Headline" parent="Text">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
+    </style>
+
+    <style name="Text.Title" parent="Text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Body" parent="Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorBody</item>
+    </style>
+
+    <style name="Text.Error" parent="Text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Widget.Button.Filter" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@drawable/filter_button_background</item>
+        <item name="android:textColor">@drawable/filter_button_text</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+
+    <style name="CardBase">
+        <item name="android:background">@color/cardBackground</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="Widget.Card.Training" parent="CardBase">
+        <item name="cardCornerRadius">12dp</item>
+    </style>
+
 </resources>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/trainingsFragment"
-        android:name="com.l3on1kl.forkolsa.ui.trainings.TrainingsFragment"
+        android:name="com.l3on1kl.forkolsa.ui.list_trainings.TrainingsFragment"
         android:label="Тренировки"
         tools:layout="@layout/fragment_trainings" />
 </navigation>

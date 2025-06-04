@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#F4635A</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#E14F47</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#333333</color>
+    <color name="colorSurfaceContainer">#FFEDEA</color>
+    <color name="colorError">#90E14F47</color>
+    <color name="searchStroke">#DDDDDD</color>
+    <color name="textPlaceholder">#999999</color>
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="textColor">#222222</color>
+    <color name="textColorBody">#666666</color>
+
 </resources>

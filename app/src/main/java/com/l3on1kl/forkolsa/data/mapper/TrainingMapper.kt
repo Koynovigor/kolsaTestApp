@@ -7,14 +7,14 @@ import com.l3on1kl.forkolsa.domain.model.Video
 
 fun TrainingDto.toDomain() = Training(
     id,
-    title,
+    title ?: "",
     description ?: "",
-    type,
-    duration.toIntOrNull() ?: 0
+    type ?: 0,
+    duration?.toIntOrNull() ?: 0,
 )
 
 fun VideoDto.toDomain() = Video(
     id,
-    duration,
-    link
+    duration ?: 0,
+    link ?: ""
 )

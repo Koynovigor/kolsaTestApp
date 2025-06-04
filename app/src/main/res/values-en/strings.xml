@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KOLSA</string>
+    <string name="workout_type">Workout</string>
+    <string name="broadcast_type">Broadcast</string>
+    <string name="complex_type">Сomplex</string>
+    <string name="not_found">Nothing was found</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+</resources>

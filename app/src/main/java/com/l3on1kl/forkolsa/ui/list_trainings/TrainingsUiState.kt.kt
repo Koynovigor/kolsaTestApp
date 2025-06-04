@@ -1,4 +1,4 @@
-package com.l3on1kl.forkolsa.ui.trainings
+package com.l3on1kl.forkolsa.ui.list_trainings
 
 import com.l3on1kl.forkolsa.domain.model.Training
 

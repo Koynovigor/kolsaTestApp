@@ -4,6 +4,6 @@ import com.squareup.moshi.Json
 
 data class VideoDto(
     @Json(name = "id") val id: Int,
-    @Json(name = "duration") val duration: Int,
-    @Json(name = "link") val link: String
+    @Json(name = "duration") val duration: Int?,
+    @Json(name = "link") val link: String?
 )

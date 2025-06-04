@@ -1,4 +1,4 @@
-package com.l3on1kl.forkolsa.ui.trainings
+package com.l3on1kl.forkolsa.ui.list_trainings
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l3on1kl.forkolsa.R
 import com.l3on1kl.forkolsa.domain.model.Training
 
-class TrainingAdapter : RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
+class TrainingAdapter(
+    private val onItemClick: (Training) -> Unit
+) : RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
 
     private val items = mutableListOf<Training>()
 
@@ -23,7 +25,7 @@ class TrainingAdapter : RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_training, parent, false)
-        return TrainingViewHolder(view)
+        return TrainingViewHolder(view, onItemClick)
     }
 
     override fun getItemCount(): Int = items.size
@@ -32,22 +34,30 @@ class TrainingAdapter : RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>
         holder.bind(items[position])
     }
 
-    class TrainingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class TrainingViewHolder(
+        view: View,
+        private val onClick: (Training) -> Unit
+    ) : RecyclerView.ViewHolder(view) {
         private val title = view.findViewById<TextView>(R.id.title)
         private val type = view.findViewById<TextView>(R.id.type)
         private val duration = view.findViewById<TextView>(R.id.duration)
         private val description = view.findViewById<TextView>(R.id.description)
 
         fun bind(training: Training) {
+            val context = itemView.context
             title.text = training.title
             type.text = when (training.type) {
-                1 -> "Тренировка"
-                2 -> "Эфир"
-                3 -> "Комплекс"
-                else -> "Неизвестно"
+                1 -> context.getString(R.string.workout_type)
+                2 -> context.getString(R.string.broadcast_type)
+                3 -> context.getString(R.string.complex_type)
+                else -> context.getString(R.string.workout_type)
             }
-            duration.text = "Длительность: ${training.duration} мин"
+            duration.text = training.duration.takeIf { it > 0 }?.let {
+                context.resources.getQuantityString(R.plurals.minutes_count, it, it)
+            } ?: ""
             description.text = training.description
+
+            itemView.setOnClickListener { onClick(training) }
         }
     }
 }
