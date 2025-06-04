@@ -49,6 +49,7 @@ class TrainingsFragment : Fragment() {
         setupRecycler()
         setupSearch()
         setupFilterButtons()
+        updateFilterButtonStates(viewModel.currentTypeFilter)
 
         binding.searchInput.setText(viewModel.currentQueryValue)
 

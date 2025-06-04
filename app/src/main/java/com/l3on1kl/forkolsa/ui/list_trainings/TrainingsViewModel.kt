@@ -15,13 +15,12 @@ import javax.inject.Inject
 class TrainingsViewModel @Inject constructor(
     private val repository: TrainingRepository
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow<TrainingsUiState>(TrainingsUiState.Loading)
-    val uiState: StateFlow<TrainingsUiState> = _uiState.asStateFlow()
-
     private var allTrainings: List<Training> = emptyList()
-    private var currentTypeFilter: Int? = null
     private var currentQuery: String = ""
+
+    var currentTypeFilter: Int? = null
+    val uiState: StateFlow<TrainingsUiState> = _uiState.asStateFlow()
     val currentQueryValue: String get() = currentQuery
 
     fun loadTrainings() {
