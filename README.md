@@ -18,14 +18,13 @@ Android-приложение для просмотра и воспроизвед
 
 ## 🧱 Архитектура
 
-app/
-├─ presentation UI, ViewModel, адаптеры
-├─ domain бизнес-логика, модели, use-case'ы
-├─ data
-│ ├─ remote API, DTO, Retrofit, Moshi
-│ ├─ local Room, DAO, сущности
-│ └─ repository общая точка доступа к данным
-└─ di Hilt-модули
+- presentation UI, ViewModel, адаптеры
+- domain - бизнес-логика, модели, use-case'ы
+- data 
+  - remote - API, DTO, Retrofit, Moshi 
+  - local - Room, DAO, сущности 
+  - repository - общая точка доступа к данным 
+- di - Hilt-модули
 
 ---
 
@@ -43,19 +42,4 @@ app/
 
 ## 🚀 CI/CD пайплайн
 
-**.github/workflows/android.yml** — автоматизация с помощью GitHub Actions
-
----
-
-## ⚙️ Как запустить проект
-
-1. Склонировать проект:
-    ```bash
-    git clone https://github.com/Koynovigor/kolsaTestApp.git
-    cd kolsaTestApp
-    ```
-2. Добавить local.properties:
-    ```bash
-    API_BASE_URL=https://ref.test.kolsa.ru/
-    ```
-3. Собрать и запустить
+**.github/workflows/release.yml** — автоматизация с помощью GitHub Actions
