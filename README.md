@@ -1,7 +1,5 @@
 # Kolsa Test App (Android)
 
-[![Android CI](https://github.com/Koynovigor/kolsaTestApp/actions/workflows/android.yml/badge.svg)](https://github.com/Koynovigor/kolsaTestApp/actions/workflows/android.yml)
-
 Android-приложение для просмотра и воспроизведения видео-тренировок.  
 Реализовано как часть тестового задания, демонстрирует чистую архитектуру, современный стек и автоматический выпуск релизов через GitHub Actions.
 
