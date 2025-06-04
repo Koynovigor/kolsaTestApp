@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_type">Workout</string>
+    <string name="broadcast_type">Broadcast</string>
+    <string name="complex_type">Сomplex</string>
+    <string name="not_found">Nothing was found</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="back">Back</string>
+    <string name="video">Video</string>
+    <string name="rewind">Rewind</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="fast_forward">Fast forward</string>
+    <string name="speed">Speed</string>
+    <string name="quality">Quality</string>
+</resources>

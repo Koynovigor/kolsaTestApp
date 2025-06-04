@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">For KOLSA</string>
+    <string name="app_name" translatable="false">KOLSA</string>
+    <string name="workout_type">Тренировка</string>
+    <string name="broadcast_type">Эфир</string>
+    <string name="complex_type">Коплекс</string>
+    <string name="not_found">Ничего не найдено</string>
+    <string name="search">Поиск</string>
+    <string name="all">Все</string>
+    <string name="back">Назад</string>
+    <string name="video">Видео</string>
+    <string name="rewind">Перемотка назад</string>
+    <string name="play">Воспроизвести</string>
+    <string name="pause">Пауза</string>
+    <string name="fast_forward">Перемотка вперёд</string>
+    <string name="speed">Скорость</string>
+    <string name="quality">Качество</string>
 </resources>
