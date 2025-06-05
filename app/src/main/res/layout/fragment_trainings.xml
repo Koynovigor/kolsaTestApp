@@ -8,21 +8,41 @@
     android:orientation="vertical"
     android:padding="14dp">
 
-    <EditText
-        android:id="@+id/searchInput"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="12dp"
-        android:autofillHints="auto"
-        android:background="@drawable/bg_search"
-        android:drawableStart="@drawable/baseline_search_24"
-        android:drawablePadding="8dp"
-        android:drawableTint="?attr/colorPrimary"
-        android:hint="@string/search"
-        android:inputType="text"
-        android:paddingHorizontal="16dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/textPlaceholder" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autofillHints="auto"
+            android:background="@drawable/bg_search"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:drawablePadding="8dp"
+            android:drawableTint="?attr/colorPrimary"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textPlaceholder" />
+
+        <ImageButton
+            android:id="@+id/themeToggleButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:checked="true"
+            android:contentDescription="@string/toggle_theme"
+            android:padding="8dp"
+            android:src="@drawable/icon_dark_mode" />
+
+    </LinearLayout>
+
 
     <HorizontalScrollView
         android:layout_width="match_parent"

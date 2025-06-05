@@ -16,4 +16,5 @@
     <string name="quality">Качество</string>
     <string name="settings">Настройки</string>
     <string name="fullscreen">Полный экран</string>
+    <string name="toggle_theme">Смена темы</string>
 </resources>
