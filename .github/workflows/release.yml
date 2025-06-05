@@ -29,10 +29,10 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
-      - name: Extract versionName from build.gradle
+      - name: Extract versionName from build.gradle.kts
         id: version
         run: |
-          VERSION_NAME=$(grep versionName app/build.gradle | head -1 | sed -E 's/.*"([0-9.]+)".*/\1/')
+          VERSION_NAME=$(grep versionName app/build.gradle.kts | head -1 | sed -E 's/.*"([0-9.]+)".*/\1/')
           echo "version=$VERSION_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Debug version output
