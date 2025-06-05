@@ -14,4 +14,6 @@
     <string name="fast_forward">Fast forward</string>
     <string name="speed">Speed</string>
     <string name="quality">Quality</string>
+    <string name="settings">Settings</string>
+    <string name="fullscreen">Fullscreen</string>
 </resources>

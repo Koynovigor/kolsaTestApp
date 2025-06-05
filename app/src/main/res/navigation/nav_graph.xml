@@ -35,6 +35,20 @@
         <argument
             android:name="duration"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_trainingDetailFragment_to_fullscreenPlayerFragment"
+            app:destination="@id/fullscreenPlayerFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fullscreenPlayerFragment"
+        android:name="com.l3on1kl.forkolsa.ui.full_screen.FullscreenPlayerFragment"
+        tools:layout="@layout/fragment_fullscreen_player">
+        <argument
+            android:name="videoUrl"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>
