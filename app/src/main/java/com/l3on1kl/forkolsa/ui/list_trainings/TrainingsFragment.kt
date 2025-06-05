@@ -1,10 +1,12 @@
 package com.l3on1kl.forkolsa.ui.list_trainings
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -12,7 +14,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.l3on1kl.forkolsa.R
 import com.l3on1kl.forkolsa.databinding.FragmentTrainingsBinding
+import com.l3on1kl.forkolsa.ui.theme.ThemePreference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -82,6 +86,20 @@ class TrainingsFragment : Fragment() {
         }
 
         viewModel.loadTrainings()
+
+        binding.themeToggleButton.setImageResource(getThemeIconRes())
+        binding.themeToggleButton.setOnClickListener {
+            val currentMode = ThemePreference.loadNightMode(requireContext())
+            val newMode = if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                AppCompatDelegate.MODE_NIGHT_NO
+            } else {
+                AppCompatDelegate.MODE_NIGHT_YES
+            }
+
+            ThemePreference.saveNightMode(requireContext(), newMode)
+            AppCompatDelegate.setDefaultNightMode(newMode)
+        }
+
     }
 
     private fun setupRecycler() {
@@ -154,6 +172,17 @@ class TrainingsFragment : Fragment() {
         buttons.forEach { (button, type) ->
             button.isSelected = type == selectedType
         }
+    }
+
+    private fun getThemeIconRes(): Int {
+        val isDark =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        return if (isDark) R.drawable.icon_light_mode else R.drawable.icon_dark_mode
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.themeToggleButton.setImageResource(getThemeIconRes())
     }
 
     override fun onDestroyView() {
