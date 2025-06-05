@@ -31,17 +31,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="215dp"
                     android:background="@android:color/black"
+                    app:controller_layout_id="@layout/custom_player_control_view"
                     app:resize_mode="fit"
                     app:show_buffering="always"
                     app:use_controller="true" />
             </com.google.android.material.card.MaterialCardView>
-
-            <ProgressBar
-                android:id="@+id/videoProgress"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:visibility="gone" />
         </FrameLayout>
 
         <TextView

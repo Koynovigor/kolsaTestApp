@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.OptIn
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
@@ -15,10 +15,12 @@ import androidx.media3.common.Player
 import androidx.media3.common.VideoSize
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.l3on1kl.forkolsa.R
 import com.l3on1kl.forkolsa.databinding.FragmentTrainingDetailBinding
+import com.l3on1kl.forkolsa.ui.video.SharedPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,9 +32,36 @@ class TrainingDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TrainingDetailViewModel by viewModels()
+    private val sharedPlayerViewModel: SharedPlayerViewModel by activityViewModels()
     private var player: ExoPlayer? = null
 
     private val args: TrainingDetailFragmentArgs by navArgs()
+
+    private val playerListener = object : Player.Listener {
+        override fun onPlaybackStateChanged(state: Int) {
+
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            _binding?.root?.let {
+                Snackbar.make(it, "${error.message}", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        override fun onVideoSizeChanged(videoSize: VideoSize) {
+            val width = videoSize.width
+            val height = videoSize.height
+            if (width > 0 && height > 0) {
+                val aspectRatio = height.toFloat() / width
+                _binding?.playerView?.post {
+                    val viewWidth = _binding?.playerView?.width ?: return@post
+                    val layoutParams = _binding?.playerView?.layoutParams ?: return@post
+                    layoutParams.height = (viewWidth * aspectRatio).toInt()
+                    _binding?.playerView?.layoutParams = layoutParams
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -69,63 +98,46 @@ class TrainingDetailFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
     @OptIn(UnstableApi::class)
     private fun initPlayer(url: String) {
+        val localBinding = _binding ?: return
         val videoUrl = if (url.startsWith("http", ignoreCase = true)) {
             url
         } else {
             "https://ref.test.kolsa.ru$url"
         }
 
-        player?.release()
-        player = ExoPlayer.Builder(requireContext()).build().also { exo ->
-            binding.playerView.player = exo
+        val exo = sharedPlayerViewModel.player
+        player = exo
+        localBinding.playerView.player = exo
+
+        val currentMediaId = exo.currentMediaItem?.mediaId
+        if (currentMediaId != videoUrl) {
             val mediaItem = MediaItem.Builder()
                 .setUri(videoUrl)
+                .setMediaId(videoUrl)
                 .build()
+
             exo.setMediaItem(mediaItem)
             exo.prepare()
-            exo.addListener(object : Player.Listener {
-                override fun onPlaybackStateChanged(state: Int) {
-                    binding.videoProgress.isVisible = when (state) {
-                        Player.STATE_BUFFERING -> true
-                        Player.STATE_READY, Player.STATE_ENDED, Player.STATE_IDLE -> false
-                        else -> false
-                    }
-                }
+            exo.playWhenReady = true
 
-                override fun onPlayerError(error: PlaybackException) {
-                    binding.videoProgress.isVisible = false
-                    Snackbar.make(
-                        binding.root,
-                        "${error.message}",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-
-                override fun onVideoSizeChanged(videoSize: VideoSize) {
-                    val width = videoSize.width
-                    val height = videoSize.height
-                    if (width > 0 && height > 0) {
-                        val aspectRatio = height.toFloat() / width
-                        binding.playerView.post {
-                            val viewWidth = binding.playerView.width
-                            val layoutParams = binding.playerView.layoutParams
-                            layoutParams.height = (viewWidth * aspectRatio).toInt()
-                            binding.playerView.layoutParams = layoutParams
-                        }
-                    }
-                }
-            })
-
+            exo.removeListener(playerListener)
+            exo.addListener(playerListener)
         }
-        with(binding) {
-            playerView.controllerShowTimeoutMs = 3000  // 3 сек
-            playerView.controllerAutoShow = true
+
+        localBinding.playerView.setFullscreenButtonClickListener {
+            findNavController().navigate(
+                TrainingDetailFragmentDirections
+                    .actionTrainingDetailFragmentToFullscreenPlayerFragment(videoUrl)
+            )
+        }
+
+        with(localBinding.playerView) {
+            controllerShowTimeoutMs = 3000
+            controllerAutoShow = true
         }
     }
 
@@ -135,7 +147,6 @@ class TrainingDetailFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        player?.release()
         player = null
         _binding = null
         super.onDestroyView()
