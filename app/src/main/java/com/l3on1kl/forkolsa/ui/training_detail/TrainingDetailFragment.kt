@@ -1,11 +1,14 @@
 package com.l3on1kl.forkolsa.ui.training_detail
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.annotation.OptIn
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -91,15 +94,11 @@ class TrainingDetailFragment : Fragment() {
             exo.prepare()
             exo.addListener(object : Player.Listener {
                 override fun onPlaybackStateChanged(state: Int) {
-                    binding.videoProgress.isVisible = when (state) {
-                        Player.STATE_BUFFERING -> true
-                        Player.STATE_READY, Player.STATE_ENDED, Player.STATE_IDLE -> false
-                        else -> false
-                    }
+
                 }
 
                 override fun onPlayerError(error: PlaybackException) {
-                    binding.videoProgress.isVisible = false
+
                     Snackbar.make(
                         binding.root,
                         "${error.message}",
@@ -121,13 +120,60 @@ class TrainingDetailFragment : Fragment() {
                     }
                 }
             })
-
         }
+
+        binding.playerView.setFullscreenButtonClickListener {
+            toggleFullscreen()
+        }
+
         with(binding) {
-            playerView.controllerShowTimeoutMs = 3000  // 3 сек
+            playerView.controllerShowTimeoutMs = 3000
             playerView.controllerAutoShow = true
         }
+
     }
+
+    private var isFullscreen = false
+
+    private fun toggleFullscreen() {
+        val window = requireActivity().window
+        val decorView = window.decorView
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+ (API 30+)
+            val controller = window.insetsController ?: return
+            if (!isFullscreen) {
+                controller.hide(WindowInsets.Type.systemBars())
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            } else {
+                controller.show(WindowInsets.Type.systemBars())
+            }
+        } else {
+            // Android 9–10 (API 28–29)
+            if (!isFullscreen) {
+                @Suppress("DEPRECATION")
+                decorView.systemUiVisibility = (
+                        View.SYSTEM_UI_FLAG_FULLSCREEN
+                                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        )
+            } else {
+                @Suppress("DEPRECATION")
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            }
+        }
+
+        val activity = requireActivity() as AppCompatActivity
+        if (!isFullscreen) {
+            activity.supportActionBar?.hide()
+        } else {
+            activity.supportActionBar?.show()
+        }
+
+        isFullscreen = !isFullscreen
+    }
+
 
     override fun onStop() {
         super.onStop()

@@ -14,4 +14,6 @@
     <string name="fast_forward">Перемотка вперёд</string>
     <string name="speed">Скорость</string>
     <string name="quality">Качество</string>
+    <string name="settings">Настройки</string>
+    <string name="fullscreen">Полный экран</string>
 </resources>

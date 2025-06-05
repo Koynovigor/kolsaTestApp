@@ -70,5 +70,14 @@
         <item name="android:scaleType">center</item>
     </style>
 
+    <style name="CustomTimeBar" parent="ExoStyledControls.TimeBar">
+        <item name="bar_height">3dp</item>
+        <item name="scrubber_enabled_size">9dp</item>
+        <item name="scrubber_drawable">@drawable/custom_scrubber</item>
+        <item name="played_color">@color/colorPrimary</item>
+        <item name="buffered_color">@color/colorSurfaceContainer</item>
+        <item name="unplayed_color">@color/colorOnSurface</item>
+    </style>
+
 
 </resources>

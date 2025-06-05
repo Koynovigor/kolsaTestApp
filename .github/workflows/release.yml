@@ -51,7 +51,7 @@ jobs:
           TAG=$(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)
           git log --pretty=format:"- %s" "$TAG"..HEAD >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
-          
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
