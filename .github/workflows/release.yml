@@ -35,6 +35,11 @@ jobs:
           VERSION_NAME=$(grep versionName app/build.gradle | head -1 | sed -E 's/.*"([0-9.]+)".*/\1/')
           echo "version=$VERSION_NAME" >> "$GITHUB_OUTPUT"
 
+      - name: Debug version output
+        id: debug
+        run: |
+          echo "VERSION: ${{ steps.version.outputs.version }}" 
+
       - name: Generate changelog
         id: changelog
         run: |
